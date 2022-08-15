@@ -48,38 +48,32 @@ w3 = Web3(Web3.HTTPProvider('HTTP://127.0.0.1:7545'))
 # module-including `wallet`, `wallet.derive_acount`, `get_balance`, `fromWei`,
 # `estimateGas`, `sendRawTransaction`, and others&mdash;have now been
 # incorporated into Python functions that allow you to automate the process of
-# accessing them.
+# accessing them. -- CHECK
 
 # 2. Add your mnemonic seed phrase (provided by Ganache) to the starter code’s `SAMPLE.env` file.
-# When the information has been added, rename the file `.env`.
+# When the information has been added, rename the file `.env`.  --CHECK
 
 # 3. Import the following functions from the `crypto_wallet.py` file:
 # * `generate_account`
 # * `get_balance`
-# * `send_transaction`
+# * `send_transaction`  -- CHECK
 
 # 4. Within the Streamlit sidebar section of code, create a variable named
 # `account`. Set this variable equal to a call on the `generate_account`
 # function. This function will create the Fintech Finder customer’s (in this
-# case, your) HD wallet and Ethereum account.
+# case, your) HD wallet and Ethereum account.  -- CHECK
 
 # 5. Within this same section of the `fintech_finder.py` file, define a
 # new `st.sidebar.write` function that will display the balance of the
 # customer’s account. Inside this function, call the `get_balance` function
-# and pass it your Ethereum `account.address`.
+# and pass it your Ethereum `account.address`.  -- CHECK
 
 
 ################################################################################
-# Step 1 - Part 3:
-# Import the following functions from the `crypto_wallet.py` file:
-# * `generate_account`
-# * `get_balance`
-# * `send_transaction`
+# Custom Imports
 
-# @TODO:
-# From `crypto_wallet.py import the functions generate_account, get_balance,
-#  and send_transaction
-# YOUR CODE HERE
+
+from crypto_wallet import generate_account, get_balance, send_transaction
 
 ################################################################################
 # Fintech Finder Candidate Information
@@ -120,17 +114,14 @@ st.text(" \n")
 ################################################################################
 # Streamlit Sidebar Code - Start
 
-st.sidebar.markdown("## Client Account Address and Ethernet Balance in Ether")
+st.sidebar.markdown("## Connected Client Account Address")
 
 ##########################################
-# Step 1 - Part 4:
-# Create a variable named `account`. Set this variable equal to a call on the
-# `generate_account` function. This function will create the Fintech Finder
-# customer’s (in this case, your) HD wallet and Ethereum account.
+# Generating the Fintech Finder Customer's ethereum account wallet.  This is the
+# ethereum account that will be used to transfer funds to the desired Fintech
+# Professional.
 
-# @TODO:
-#  Call the `generate_account` function and save it as the variable `account`
-# YOUR CODE HERE
+account = generate_account()
 
 ##########################################
 
@@ -138,15 +129,11 @@ st.sidebar.markdown("## Client Account Address and Ethernet Balance in Ether")
 st.sidebar.write(account.address)
 
 ##########################################
-# Step 1 - Part 5:
-# Define a new `st.sidebar.write` function that will display the balance of the
-# customer’s account. Inside this function, call the `get_balance` function and
-#  pass it your Ethereum `account.address`.
+# Display Balance of customer's account in ETH:
 
-# @TODO
-# Call `get_balance` function and pass it your account address
-# Write the returned ether balance to the sidebar
-# YOUR CODE HERE
+def display_customer_balance(w3,address):
+    st.sidebar.write(f'### **Balance**: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{str(get_balance(w3,address))} ETH')
+display_customer_balance(w3,account.address)
 
 ##########################################
 
